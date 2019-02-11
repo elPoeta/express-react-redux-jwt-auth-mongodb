@@ -28,3 +28,36 @@ export const signup = (formProps, redirectCallback) => async dispatch => {
 
 }
 
+export const signout = () => {
+    localStorage.removeItem('token');
+    return {
+        type: AUTH_USER,
+        payload: ''
+    }
+}
+
+export const signin = (formProps, redirectCallback) => async dispatch => {
+    try {
+        const response = await fetch('http://localhost:5000/signin', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify(formProps),
+
+        });
+        const data = await response;
+        if (!data.ok) {
+            throw Error(data.statusText);
+        }
+
+        const json = await data.json();
+        console.log(json);
+
+        dispatch({ type: AUTH_USER, payload: json.token });
+        localStorage.setItem('token', json.token);
+        redirectCallback();
+    } catch (error) {
+        dispatch({ type: AUTH_ERROR, payload: 'Wrong Email or Password' });
+    }
+}
