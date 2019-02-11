@@ -19,6 +19,7 @@ export const signup = (formProps, redirectCallback) => async dispatch => {
         console.log(json);
 
         dispatch({ type: AUTH_USER, payload: json.token });
+        localStorage.setItem('token', json.token);
         redirectCallback();
     } catch (error) {
         dispatch({ type: AUTH_ERROR, payload: 'Email is in use' });

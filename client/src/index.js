@@ -1,18 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import './index.css';
-import App from './components/App';
+
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+
+import App from './components/App';
 import reducers from './reducers';
 
+
+import './index.css';
+
+
 import * as serviceWorker from './serviceWorker';
-const store = createStore(reducers, {}, compose(
-    applyMiddleware(thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-));
+
+const store = createStore(reducers,
+    {
+        auth: { authenticated: localStorage.getItem('token') }
+    },
+    compose(
+        applyMiddleware(thunk),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    ));
 
 ReactDOM.render(<Provider store={store}>
     <BrowserRouter>
