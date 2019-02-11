@@ -5,11 +5,12 @@ import { connect } from 'react-redux';
 import { signup } from '../../actions';
 class Signup extends Component {
     onSubmit = (formProps) => {
-        console.log(formProps);
-        this.props.signup(formProps);
+        this.props.signup(formProps, () => {
+            this.props.history.push('/secret');
+        });
     }
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, errorMessage } = this.props;
         return (
             <form onSubmit={handleSubmit(this.onSubmit)}>
                 <fieldset>
@@ -30,13 +31,18 @@ class Signup extends Component {
                         autoComplete='none'
                     />
                 </fieldset>
+                <div>{errorMessage}</div>
                 <button>SignUp</button>
             </form>
         )
     }
 }
-
+const mapStateToProps = state => {
+    return {
+        errorMessage: state.auth.errorMessage
+    }
+}
 export default compose(
-    connect(null, { signup }),
+    connect(mapStateToProps, { signup }),
     reduxForm({ form: 'signup' })
 )(Signup);

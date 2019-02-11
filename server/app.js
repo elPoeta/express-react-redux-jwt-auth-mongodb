@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const router = require('./routes/index');
 const config = require('./config/keys');
+const cors = require('cors');
 
 mongoose.Promise = global.Promise;
 mongoose
@@ -11,6 +12,8 @@ mongoose
     .catch(error => console.log(error));
 
 const app = express();
+
+app.use(cors());
 
 app.use(bodyParser.json({ type: "*/*" }));
 app.use(bodyParser.urlencoded({ extended: false }));
