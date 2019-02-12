@@ -4,8 +4,10 @@
   "description": "Athentication jwt",
   "main": "index.js",
   "scripts": {
+    "server-dev": "nodemon index.js",
+    "client-dev": "npm start --prefix ../client",
+    "start-dev": "concurrently \"npm run server-dev\" \"npm run client-dev\"",
     "start": "node index.js",
-    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Leonardo Tosetto (leonardo.a.tosetto@gmail.com)",
@@ -20,5 +22,8 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0"
   }
 }
