@@ -11,4 +11,5 @@ module.exports = app => {
     });
     app.post('/signin', requireSignIn, auth.signIn);
     app.post('/signup', auth.signUp);
+    app.get('/secret', requireAuth, auth.secret);
 };

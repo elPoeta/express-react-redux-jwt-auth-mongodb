@@ -1,4 +1,5 @@
-import { AUTH_USER, AUTH_ERROR } from './types';
+import { AUTH_USER, AUTH_ERROR, SECRET } from './types';
+
 
 export const signup = (formProps, redirectCallback) => async dispatch => {
     try {
@@ -59,5 +60,28 @@ export const signin = (formProps, redirectCallback) => async dispatch => {
         redirectCallback();
     } catch (error) {
         dispatch({ type: AUTH_ERROR, payload: 'Wrong Email or Password' });
+    }
+}
+
+export const secretAction = token => async dispatch => {
+    try {
+        const response = await fetch('http://localhost:5000/secret', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': token
+
+            }
+        });
+        const res = await response;
+        if (!res.ok) {
+            throw Error(res.statusText);
+        }
+        const data = await res.json();
+        console.log('secret action ', data.secret)
+        dispatch({ type: SECRET, payload: data.secret });
+    } catch (error) {
+        dispatch({ type: AUTH_ERROR, payload: 'Resource not found or premission denied' });
     }
 }

@@ -6,7 +6,7 @@ import { signin } from '../../actions';
 class Signin extends Component {
     onSubmit = (formProps) => {
         this.props.signin(formProps, () => {
-            this.props.history.push('/secret');
+            this.props.history.push('/feature');
         });
     }
     render() {

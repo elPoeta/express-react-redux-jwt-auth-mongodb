@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './Home';
+import Feature from './Feature';
 import Secret from './Secret';
 import Signup from './auth/Signup';
 import Signout from './auth/Signout';
@@ -13,6 +14,7 @@ const Main = () => (
             <Route path='/signup' component={Signup} />
             <Route path='/signout' component={Signout} />
             <Route path='/signin' component={Signin} />
+            <Route path='/feature' component={Feature} />
             <Route path='/secret' component={Secret} />
         </Switch>
     </div>
